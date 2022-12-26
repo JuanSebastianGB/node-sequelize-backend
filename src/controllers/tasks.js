@@ -1,14 +1,19 @@
 import { matchedData } from 'express-validator';
+import { Project } from '../models/project.js';
 import { Task } from '../models/task.js';
 import { handleHttpErrors } from '../utilities/handleHttpErrors.js';
 
 export const getTasks = async (req, res) => {
-  const tasks = await Task.findAll();
+  const tasks = await Task.findAll({
+    include: [Project],
+  });
   return res.json(tasks);
 };
 export const getTaskById = async (req, res) => {
   const { id } = matchedData(req);
-  const task = await Task.findByPk(id);
+  const task = await Task.findByPk(id, {
+    include: [Project],
+  });
   return res.json(task);
 };
 export const createTask = async (req, res) => {
