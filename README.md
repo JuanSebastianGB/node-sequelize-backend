@@ -1,1 +1,1 @@
-# full stack crud project
+# mysql sequelize backend project
